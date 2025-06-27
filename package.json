@@ -1,0 +1,37 @@
+{
+  "name": "earl_ui_kit",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "@mui/material": "^6.4.2",
+    "@mui/x-data-grid": "^7.25.0",
+    "axios": "^1.4.0",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@inertiajs/react": "^2.0.3",
+    "@mui/icons-material": "^6.4.2",
+    "@mui/x-date-pickers": "^7.27.1",
+    "sweetalert2": "^11.15.10",
+    "sweetalert2-react-content": "^5.1.0",
+    "ziggy-js": "^2.5.1",
+    "dayjs": "^1.11.13"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheEarl1707/earl_ui_kit.git"
+  },
+  "keywords": [],
+  "author": "",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/TheEarl1707/earl_ui_kit/issues"
+  },
+  "homepage": "https://github.com/TheEarl1707/earl_ui_kit#readme"
+}
