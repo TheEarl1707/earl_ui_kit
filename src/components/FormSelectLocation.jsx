@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Autocomplete, TextField, FormControl } from '@mui/material';
-import { searchRegion } from 'ph-geo-admin-divisions';
 
 export default function FormSelectLocation({ label, options, data, handleChange, field_name, is_disabled, setAreaCode, errors, is_required }) {
     return (
