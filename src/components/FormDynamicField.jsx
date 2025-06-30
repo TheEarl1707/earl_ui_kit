@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { FormControl, InputLabel, FormLabel, FormHelperText, TextField, Stack, FormGroup, FormControlLabel, Divider, MenuItem, Select, IconButton, Grid2, Button } from '@mui/material';
+import { FormControl, InputLabel, FormLabel, FormHelperText, TextField, Stack, FormGroup, FormControlLabel, Divider, MenuItem, Select, IconButton, Grid, Button } from '@mui/material';
 
 import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
 import CloseIcon from '@mui/icons-material/Close';
@@ -226,13 +226,13 @@ export default function FormDynamicField({ data, fields, setRowReference, handle
     }
 
     const btnAddRow = (!is_disabled)
-        ? <Grid2 size={{ xs: 12, sm: 12, md: 12, lg: 12, xl: 12 }}>
+        ? <Grid size={{ xs: 12, sm: 12, md: 12, lg: 12, xl: 12 }}>
             <Button
                 variant='outlined'
                 sx={{ display: "block", margin: "auto" }}
                 onClick={() => handleAddRow()}
             >Add Row</Button>
-        </Grid2>
+        </Grid>
         : '';
 
         // React.useEffect(() => {
@@ -246,7 +246,7 @@ export default function FormDynamicField({ data, fields, setRowReference, handle
                     {fields.map((field, index2) => { //Loop how many columns
                         if (index2 == 0) {
                             return (
-                                <Grid2 size={field.size}>
+                                <Grid size={field.size}>
                                     <Stack direction="row" >
                                         {btnDeleteRow(index)}
 
@@ -261,11 +261,11 @@ export default function FormDynamicField({ data, fields, setRowReference, handle
                                             is_multiple: field?.is_multiple,
                                         })}
                                     </Stack>
-                                </Grid2>
+                                </Grid>
                             )
                         } else {
                             return (
-                                <Grid2 size={field.size}>
+                                <Grid size={field.size}>
                                     {handleField({
                                         type: field.type,
                                         is_required: field.is_required,
@@ -276,7 +276,7 @@ export default function FormDynamicField({ data, fields, setRowReference, handle
                                         is_disabled_future: field?.is_disabled_future,
                                         is_multiple: field?.is_multiple
                                     })}
-                                </Grid2>
+                                </Grid>
                             )
                         }
                     })}

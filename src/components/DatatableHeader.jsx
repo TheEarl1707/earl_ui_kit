@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { route } from "ziggy-js";
-import { Button, Grid2, Stack } from '@mui/material';
+import { Button, Grid, Stack } from '@mui/material';
 import { Link, router } from '@inertiajs/react'
 
 export default function DatatableHeader({ can_add, addRoute, tableName, btnAddText='Add', getRows }) {
@@ -38,17 +38,17 @@ export default function DatatableHeader({ can_add, addRoute, tableName, btnAddTe
 
     return (
         <>
-            <Grid2 container alignItems="center" justifyContent="space-between" className="py-2">
-                <Grid2 size={8}>
+            <Grid container alignItems="center" justifyContent="space-between" className="py-2">
+                <Grid size={8}>
                     <h5 className='ms-2 mt-2'>{ tableName }</h5>
-                </Grid2>
-                <Grid2 size={4} display="flex" justifyContent="flex-end">
+                </Grid>
+                <Grid size={4} display="flex" justifyContent="flex-end">
                     <Stack direction="row" spacing={1}>
                         { btnRefresh() }
                         { btnAdd() }
                     </Stack>
-                </Grid2>
-            </Grid2>
+                </Grid>
+            </Grid>
         </>
     );
 }

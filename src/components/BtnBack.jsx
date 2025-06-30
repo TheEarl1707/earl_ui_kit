@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { route } from "ziggy-js";
 import { Link, router } from '@inertiajs/react';
-import { Button, Typography, Grid2, IconButton } from '@mui/material';
+import { Button, Typography, Grid, IconButton } from '@mui/material';
 
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 

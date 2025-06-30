@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { FormControl, FormLabel, FormHelperText, TextField, Stack, FormGroup, FormControlLabel, Divider, Box, RadioGroup, IconButton, Grid2, Button } from '@mui/material';
+import { FormControl, FormLabel, FormHelperText, TextField, Stack, FormGroup, FormControlLabel, Divider, Box, RadioGroup, IconButton, Grid, Button } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 
 export default function FormContactDetails({ data, handleChangeMultiple = () => {}, is_disabled, is_required, errors }) {
@@ -18,7 +18,7 @@ export default function FormContactDetails({ data, handleChangeMultiple = () => 
         <>
         {data['method'].map((item, index) => (
             <>
-                <Grid2 size={{ xs: 12, sm: 6, md: 6, lg: 6, xl: 6 }}>
+                <Grid size={{ xs: 12, sm: 6, md: 6, lg: 6, xl: 6 }}>
                     <Stack direction="row" >
                         <IconButton key={index} onClick={() => handleRemoveRow(index)}>
                             <CloseIcon />
@@ -36,8 +36,8 @@ export default function FormContactDetails({ data, handleChangeMultiple = () => 
                             helperText={errors.method}
                         />
                     </Stack>
-                </Grid2>
-                <Grid2 size={{ xs: 12, sm: 6, md: 6, lg: 6, xl: 6 }}>
+                </Grid>
+                <Grid size={{ xs: 12, sm: 6, md: 6, lg: 6, xl: 6 }}>
                     <TextField
                         fullWidth
                         required
@@ -50,16 +50,16 @@ export default function FormContactDetails({ data, handleChangeMultiple = () => 
                         error={Boolean(errors.detail)}
                         helperText={errors.detail}
                     />
-                </Grid2>
+                </Grid>
             </>
         ))}
-            <Grid2 size={{ xs: 12, sm: 12, md: 12, lg: 12, xl: 12 }}>
+            <Grid size={{ xs: 12, sm: 12, md: 12, lg: 12, xl: 12 }}>
                 <Button
                     variant='outlined'
                     sx={{ display: "block", margin: "auto" }}
                     onClick={() => handleAddRow()}
                 >Add Row</Button>
-            </Grid2>
+            </Grid>
         </>
     );
 }

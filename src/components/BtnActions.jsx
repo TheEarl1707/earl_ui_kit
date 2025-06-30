@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Link, router } from '@inertiajs/react';
-import { Button, Grid2, Tooltip } from '@mui/material';
+import { Button, Grid, Tooltip } from '@mui/material';
 
 export default function BtnActions({ url='', method='get', icon, color='info', hover_title, onClickAction=false, data=null, setLoading, setSnackbarOpen, setSnackbar }) {
     // const [loading, setLoading] = React.useState(false);

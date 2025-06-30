@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Link, router } from '@inertiajs/react';
-import { Button, Grid2, IconButton } from '@mui/material';
+import { Button, Grid, IconButton } from '@mui/material';
 
 import EditIcon from '@mui/icons-material/Edit';
 
