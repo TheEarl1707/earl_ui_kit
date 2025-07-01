@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
 import axios from 'axios';
 
-interface useDatatableProps {
+interface Props {
   resource: string;
   id_name?: string;
 }
@@ -15,7 +15,7 @@ export type useDatatableReturnType = {
   setRows: React.Dispatch<React.SetStateAction<any>>;
 };
 
-export default function useDatatable({ resource, id_name = 'id' }: useDatatableProps): useDatatableReturnType {
+export default function useDatatable({ resource, id_name = 'id' }: Props): useDatatableReturnType {
   const [rows, setRows] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
 
