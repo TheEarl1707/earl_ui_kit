@@ -7,8 +7,6 @@ export default function SelectBranchStation({ defaultValue, branch_station, setB
         ? ['All', 'PhilRice Agusan', 'PhilRice Batac', 'PhilRice Bicol', 'PhilRice CES', 'PhilRice Isabela', 'PhilRice Los Baňos', 'PhilRice Midsayap', 'PhilRice Negros']
         : ['All', auth_user.branch_station];
 
-        //TODO: For other users who are not Admin or Program Management, try to only show the branch station that the user is assigned to
-
     return (
         <FormControl fullWidth>
             <InputLabel id="select-station-label">Branch Station</InputLabel>

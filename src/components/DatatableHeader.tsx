@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { route } from "ziggy-js";
 import { Button, Grid, Stack } from '@mui/material';
-import { Link, router } from '@inertiajs/react'
+import { router } from '@inertiajs/react'
 
 interface Props {
     can_add: boolean;
