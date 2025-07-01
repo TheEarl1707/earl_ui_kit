@@ -279,7 +279,7 @@ export default function ColumnActions({ user, resource, row_id, is_approved, can
 
     return (
         <>
-            <Stack direction="row" spacing={1} className='mt-2'>
+            <Stack direction="row" spacing={1} className='mt-1'>
                 { btnEdit }
                 { btnShow }
                 { btnApprove }
