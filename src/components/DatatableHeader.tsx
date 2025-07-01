@@ -3,7 +3,7 @@ import { route } from "ziggy-js";
 import { Button, Grid, Stack } from '@mui/material';
 import { Link, router } from '@inertiajs/react'
 
-interface DatatableHeaderProps {
+interface Props {
     can_add: boolean;
     add_route: string;
     table_name: string;
@@ -11,7 +11,7 @@ interface DatatableHeaderProps {
     getRows: (params?: Record<string, any>) => void;
 }
 
-export default function DatatableHeader({ can_add, add_route, table_name, btn_add_text='Add', getRows }: DatatableHeaderProps): React.ReactNode {
+export default function DatatableHeader({ can_add, add_route, table_name, btn_add_text='Add', getRows }: Props): React.ReactNode {
 
     const btnAdd = (): React.ReactNode | null => { //React.ReactNode should also include jsx
         const onClick = (): void => {
