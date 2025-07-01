@@ -1,22 +1,21 @@
 import * as React from 'react';
 import { route } from "ziggy-js";
-import { Link, router } from '@inertiajs/react';
-import { Button, Typography, Grid, IconButton } from '@mui/material';
+import { router } from '@inertiajs/react';
+import { Button, Typography } from '@mui/material';
 
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
-export default function BtnBack({ route_name, text, data }) {
-    const onClick = () => {
+interface Props {
+    route_name: string;
+    text: string;
+}
+
+export default function BtnBack({ route_name, text }: Props): React.ReactNode {
+    const onClick = (): void => {
         router.get(route(route_name));
     }
 
     return (
-        // <IconButton
-        //     onClick={ onClick }
-        // >
-        //     <ArrowBackIcon />
-        // </IconButton>
-
         <Button
             variant="text"
             startIcon={<ArrowBackIcon />}

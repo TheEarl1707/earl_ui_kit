@@ -11,7 +11,7 @@ interface Props {
     onClickAction?: any;
 }
 
-export default function BtnActions({ url='', method='get', icon, color='info', hover_title, onClickAction=false }: Props) {
+export default function BtnActions({ url='', method='get', icon, color='info', hover_title, onClickAction=false }: Props): React.ReactNode {
     return (
         <>
             <Tooltip title={hover_title}>
