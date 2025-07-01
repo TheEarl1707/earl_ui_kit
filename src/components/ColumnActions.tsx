@@ -1,8 +1,7 @@
 import * as React from 'react';
-import { Link, router, useForm } from '@inertiajs/react';
-import { Button, Stack } from '@mui/material';
+import { Stack } from '@mui/material';
 import Swal from 'sweetalert2'
-import withReactContent from 'sweetalert2-react-content'
+import withReactContent, { ReactSweetAlert } from 'sweetalert2-react-content'
 
 import EditIcon from '@mui/icons-material/Edit';
 import InfoIcon from '@mui/icons-material/Info';
@@ -10,22 +9,37 @@ import GavelIcon from '@mui/icons-material/Gavel';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 import BtnActions from './BtnActions';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { route } from 'ziggy-js';
 
-export default function ColumnActions({ user, resource, row_id, is_approved, can_edit=false, can_archive=false, can_delete=false, can_approve_disapprove=false, refreshData, setLoading, setSnackbar, customBtn1 }) {
-    const role = user?.role;
-    const user_id = user?.id;
+interface Props {
+    user: any;
+    resource: string;
+    row_id: number | string;
+    is_approved: boolean;
+    can_edit?: boolean;
+    can_archive?: boolean;
+    can_delete?: boolean;
+    can_approve_disapprove?: boolean;
+    refreshData?: any;
+    setLoading?: any;
+    setSnackbar?: any;
+    custom_btn_1?: React.ReactNode;
+}
+
+export default function ColumnActions({ user, resource, row_id, is_approved, can_edit=false, can_archive=false, can_delete=false, can_approve_disapprove=false, refreshData, setLoading, setSnackbar, custom_btn_1 }: Props): React.ReactNode {
+    const role: string | undefined = user?.role;
+    const user_id: string | number | undefined = user?.id;
     // console.log(is_approved)
 
-    const MySwal = withReactContent(Swal)
+    const MySwal: ReactSweetAlert = withReactContent(Swal)
     const capitalResource = resource.charAt(0).toUpperCase() + resource.slice(1);
-    const wordArchiveDelete = can_archive ? 'archive' : 'delete';
-    const capitalWordArchiveDelete = wordArchiveDelete.charAt(0).toUpperCase() + wordArchiveDelete.slice(1);
+    const wordArchiveDelete: 'archive' | 'delete' = can_archive ? 'archive' : 'delete';
+    const capitalWordArchiveDelete: string = wordArchiveDelete.charAt(0).toUpperCase() + wordArchiveDelete.slice(1);
 
-    const SwalApproveUnapprove = () => {
-        let action_word = '';
-        let send_route = '';
+    const SwalApproveUnapprove = (): void => {
+        let action_word: string = '';
+        let send_route: string = '';
 
         if (resource == 'accounts') {
             action_word = is_approved ? 'deactivate' : 'activate';
@@ -55,8 +69,8 @@ export default function ColumnActions({ user, resource, row_id, is_approved, can
                 //shows loading sweetalert
                 // showSwal();
 
-                let password = result.value;
-                let data = {
+                let password: string = result.value;
+                let data: Record<string, any> = {
                     submitted_id: row_id,
                     password: password,
                     action: !(is_approved)
@@ -86,7 +100,7 @@ export default function ColumnActions({ user, resource, row_id, is_approved, can
                         });
                     });
 
-                console.log(data)
+                // console.log(data)
 
                 // setData(data1);
                 // post(`${resource}/archive_unarchive`);
@@ -94,7 +108,7 @@ export default function ColumnActions({ user, resource, row_id, is_approved, can
         });
     };
 
-    const SwalArchiveDelete = () => {
+    const SwalArchiveDelete = (): void => {
         MySwal.fire({
             title: `Enter your password to ${wordArchiveDelete} this entry`,
             input: 'password',
@@ -113,8 +127,8 @@ export default function ColumnActions({ user, resource, row_id, is_approved, can
                 //shows loading sweetalert
                 // showSwal();
 
-                let password = result.value;
-                let data = {
+                let password: string = result.value;
+                let data: Record<string, any> = {
                     submitted_id: row_id,
                     password: password,
                 }
@@ -143,7 +157,7 @@ export default function ColumnActions({ user, resource, row_id, is_approved, can
                         });
                     });
 
-                console.log(data)
+                // console.log(data)
 
                 // setData(data1);
                 // post(`${resource}/archive_unarchive`);
@@ -151,7 +165,7 @@ export default function ColumnActions({ user, resource, row_id, is_approved, can
         });
     }
 
-    const SwalArchiveDeleteNoAccount = () => {
+    const SwalArchiveDeleteNoAccount = (): void => {
         MySwal.fire({
             title: `Confirm to ${wordArchiveDelete} this entry`,
             icon: 'warning',
@@ -165,7 +179,7 @@ export default function ColumnActions({ user, resource, row_id, is_approved, can
             if (result.isConfirmed) {
                 setLoading(true);
 
-                const request = (can_delete)
+                const request: Promise<AxiosResponse<any>> = (can_delete)
                     ? axios.post(route(`${resource}.destroy`, { id: row_id }))
                     : axios.post(route(`${resource}.archive_unarchive`));
 
@@ -191,7 +205,7 @@ export default function ColumnActions({ user, resource, row_id, is_approved, can
         });
     }
 
-    const btnEdit =
+    const btnEdit: React.ReactNode | null =
         (can_edit && !(is_approved))
             ?  <BtnActions
                 url={`${resource}/edit/${row_id}`}
@@ -202,7 +216,7 @@ export default function ColumnActions({ user, resource, row_id, is_approved, can
              />
             : null;
 
-    const btnShow =
+    const btnShow: React.ReactNode | null =
         (is_approved)
             ? <BtnActions
                 url={`${resource}/show/${row_id}`}
@@ -213,7 +227,7 @@ export default function ColumnActions({ user, resource, row_id, is_approved, can
              />
             : null;
 
-    const btnApprove =
+    const btnApprove: React.ReactNode | null =
         (can_approve_disapprove && !(is_approved))
             ? <BtnActions
                 icon={<GavelIcon />}
@@ -225,7 +239,7 @@ export default function ColumnActions({ user, resource, row_id, is_approved, can
              />
             : null;
 
-    const btnUnapprove =
+    const btnUnapprove: React.ReactNode | null =
         (can_approve_disapprove && is_approved)
             ? <BtnActions
                 icon={<GavelIcon />}
@@ -238,7 +252,7 @@ export default function ColumnActions({ user, resource, row_id, is_approved, can
             : null;
 
 
-    const btnArchiveDelete =
+    const btnArchiveDelete: React.ReactNode | null =
         ((can_archive || can_delete) && !(is_approved) && (user_id !== null))
             ? <BtnActions
                 icon={<DeleteIcon />}
@@ -251,7 +265,7 @@ export default function ColumnActions({ user, resource, row_id, is_approved, can
                 />
             : null;
 
-    const btnArchiveDeleteNoAccount =
+    const btnArchiveDeleteNoAccount: React.ReactNode | null =
         ((can_archive || can_delete) && !(is_approved) && user_id)
             ? <BtnActions
                 icon={<DeleteIcon />}
@@ -272,7 +286,7 @@ export default function ColumnActions({ user, resource, row_id, is_approved, can
                 { btnUnapprove }
                 { btnArchiveDelete }
                 { btnArchiveDeleteNoAccount }
-                { customBtn1 }
+                { custom_btn_1 }
             </Stack>
         </>
     );
