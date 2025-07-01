@@ -22,7 +22,7 @@ export default function BtnActions({ url='', method='get', icon, color='info', h
                         onClickAction
                             ? onClickAction //execute the onClickAction function
                             : () => {
-                                if (url === '') {
+                                if (url !== '') {
                                     router.visit(url, {
                                         method: method
                                     });
