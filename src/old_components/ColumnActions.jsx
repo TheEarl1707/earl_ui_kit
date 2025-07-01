@@ -9,14 +9,13 @@ import InfoIcon from '@mui/icons-material/Info';
 import GavelIcon from '@mui/icons-material/Gavel';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-import BtnActions from './BtnActions';
-import { showSwal, showSuccessActions, showError } from '../custom-utils';
+import BtnActions from '../components/BtnActions';
 import axios from 'axios';
 import { route } from 'ziggy-js';
 
 export default function ColumnActions({ user, resource, row_id, is_approved, can_edit=false, can_archive=false, can_delete=false, can_approve_disapprove=false, refreshData, setLoading, setSnackbar, customBtn1 }) {
-    const role = user.role;
-    const user_id = user.id;
+    const role = user?.role;
+    const user_id = user?.id;
     // console.log(is_approved)
 
     const MySwal = withReactContent(Swal)
@@ -69,7 +68,6 @@ export default function ColumnActions({ user, resource, row_id, is_approved, can
 
                 axios.post(send_route, data)
                     .then((response) => {
-                        console.log(response)
                         refreshData(row_id);
                         setLoading(false);
                         setSnackbar({
@@ -77,7 +75,6 @@ export default function ColumnActions({ user, resource, row_id, is_approved, can
                             message: response.data.message,
                             severity: 'success'
                         });
-                        // showSuccessActions(`${capitalResource} updated`, response.data.message)
                     })
                     .catch((error) => {
                         console.log(error);
@@ -154,6 +151,46 @@ export default function ColumnActions({ user, resource, row_id, is_approved, can
         });
     }
 
+    const SwalArchiveDeleteNoAccount = () => {
+        MySwal.fire({
+            title: `Confirm to ${wordArchiveDelete} this entry`,
+            icon: 'warning',
+            // showCancelButton: true,
+            showDenyButton: true,
+            confirmButtonText: 'Confirm',
+            confirmButtonColor: 'Red',
+            denyButtonText: 'Cancel',
+            denyButtonColor: 'Green',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                setLoading(true);
+
+                const request = (can_delete)
+                    ? axios.post(route(`${resource}.destroy`, { id: row_id }))
+                    : axios.post(route(`${resource}.archive_unarchive`));
+
+                request
+                .then((response) => {
+                    refreshData(row_id);
+                    setLoading(false);
+                    setSnackbar({
+                        open: true,
+                        message: response.data.message,
+                        severity: 'success'
+                    });
+                })
+                .catch((error) => {
+                    setLoading(false);
+                    setSnackbar({
+                        open: true,
+                        message: error.response.data.message,
+                        severity: 'error'
+                    });
+                });
+            }
+        });
+    }
+
     const btnEdit =
         (can_edit && !(is_approved))
             ?  <BtnActions
@@ -208,7 +245,7 @@ export default function ColumnActions({ user, resource, row_id, is_approved, can
 
 
     const btnArchiveDelete =
-        ((can_archive || can_delete) && !(is_approved))
+        ((can_archive || can_delete) && !(is_approved) && (user_id !== null))
             ? <BtnActions
                 icon={<DeleteIcon />}
                 color='error'
@@ -221,16 +258,28 @@ export default function ColumnActions({ user, resource, row_id, is_approved, can
                 />
             : null;
 
-    /////TODO: Do remember that for approve/unapprove, we use swal to display message and confirm to user about their action. No need to reload after that, but a refresh should be done.
+    const btnArchiveDeleteNoAccount =
+        ((can_archive || can_delete) && !(is_approved) && user_id)
+            ? <BtnActions
+                icon={<DeleteIcon />}
+                color='error'
+                hover_title={capitalWordArchiveDelete}
+                setSnackbar={setSnackbar}
+                onClickAction={() => {
+                    SwalArchiveDeleteNoAccount();
+                }}
+                />
+            : null;
 
     return (
         <>
-            <Stack direction="row" spacing={1}>
+            <Stack direction="row" spacing={1} className='mt-2'>
                 { btnEdit }
                 { btnShow }
                 { btnApprove }
                 { btnUnapprove }
                 { btnArchiveDelete }
+                { btnArchiveDeleteNoAccount }
                 { customBtn1 }
             </Stack>
         </>
