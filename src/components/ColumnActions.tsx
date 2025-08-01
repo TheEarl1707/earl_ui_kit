@@ -13,10 +13,13 @@ import axios, { AxiosResponse } from 'axios';
 import { route } from 'ziggy-js';
 
 interface Props {
-    user: any;
+    user?: {
+        role: string;
+        id: string | number;
+    };
     resource: string;
     row_id: number | string;
-    is_approved: boolean;
+    is_approved: boolean | null;
     can_edit?: boolean;
     can_archive?: boolean;
     can_delete?: boolean;
@@ -27,10 +30,12 @@ interface Props {
     custom_btn_1?: React.ReactNode;
 }
 
-export default function ColumnActions({ user, resource, row_id, is_approved, can_edit=false, can_archive=false, can_delete=false, can_approve_disapprove=false, refreshData, setLoading, setSnackbar, custom_btn_1 }: Props): React.ReactNode {
+export default function ColumnActions({ user, resource, row_id, is_approved=null, can_edit=false, can_archive=false, can_delete=false, can_approve_disapprove=false, refreshData, setLoading, setSnackbar, custom_btn_1 }: Props): React.ReactNode {
     const role: string | undefined = user?.role;
     const user_id: string | number | undefined = user?.id;
     // console.log(is_approved)
+
+    // user={ role: '', id: '' }
 
     const MySwal: ReactSweetAlert = withReactContent(Swal)
     const capitalResource = resource.charAt(0).toUpperCase() + resource.slice(1);
@@ -228,7 +233,7 @@ export default function ColumnActions({ user, resource, row_id, is_approved, can
             : null;
 
     const btnApprove: React.ReactNode | null =
-        (can_approve_disapprove && !(is_approved))
+        (can_approve_disapprove && is_approved === false)
             ? <BtnActions
                 icon={<GavelIcon />}
                 color='success'
@@ -240,7 +245,7 @@ export default function ColumnActions({ user, resource, row_id, is_approved, can
             : null;
 
     const btnUnapprove: React.ReactNode | null =
-        (can_approve_disapprove && is_approved)
+        (can_approve_disapprove && is_approved === true)
             ? <BtnActions
                 icon={<GavelIcon />}
                 color='error'
@@ -253,7 +258,7 @@ export default function ColumnActions({ user, resource, row_id, is_approved, can
 
 
     const btnArchiveDelete: React.ReactNode | null =
-        ((can_archive || can_delete) && !(is_approved) && (user_id !== null))
+        ((can_archive || can_delete) && (is_approved === false) && (user_id !== null))
             ? <BtnActions
                 icon={<DeleteIcon />}
                 color='error'
@@ -266,7 +271,7 @@ export default function ColumnActions({ user, resource, row_id, is_approved, can
             : null;
 
     const btnArchiveDeleteNoAccount: React.ReactNode | null =
-        ((can_archive || can_delete) && !(is_approved) && user_id)
+        ((can_archive || can_delete) && (is_approved === false) && user_id)
             ? <BtnActions
                 icon={<DeleteIcon />}
                 color='error'
