@@ -3,6 +3,7 @@ import axios from 'axios';
 
 interface Props {
   resource: string;
+  datatable_route_name: string;
   id_name?: string;
 }
 
@@ -15,7 +16,7 @@ export type useDatatableReturnType = {
   setRows: React.Dispatch<React.SetStateAction<any>>;
 };
 
-export default function useDatatable({ resource, id_name = 'id' }: Props): useDatatableReturnType {
+export default function useDatatable({ resource, datatable_route_name, id_name = 'id' }: Props): useDatatableReturnType {
   const [rows, setRows] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -24,7 +25,7 @@ export default function useDatatable({ resource, id_name = 'id' }: Props): useDa
     setRows([]);
 
     axios
-      .get(`${resource}/datatable`, { params: { ...params } })
+      .get(datatable_route_name, { params: { ...params } })
       .then((response) => {
         setRows(response.data);
       })
@@ -34,7 +35,7 @@ export default function useDatatable({ resource, id_name = 'id' }: Props): useDa
       .finally(() => {
         setLoading(false);
       });
-  }, [resource]);
+  }, []);
 
   const updateSingleRow = useCallback((row_id: number | string) => {
     setRows((old_rows): Record<string, any>[] => {
