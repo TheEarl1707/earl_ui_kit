@@ -19,7 +19,7 @@ interface Props {
     };
     resource: string;
     row_id: number | string;
-    is_approved: boolean | null;
+    is_approved?: boolean | null;
     can_edit?: boolean;
     can_archive?: boolean;
     can_delete?: boolean;
