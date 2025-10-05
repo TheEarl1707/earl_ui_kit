@@ -270,8 +270,9 @@ export default function ColumnActions({ user, resource, row_id, is_approved=null
                 />
             : null;
 
+    //! I changed the condition so that it will not show if user_id is null
     const btnArchiveDeleteNoAccount: React.ReactNode | null =
-        ((can_archive || can_delete) && (is_approved === false) && user_id)
+        ((can_archive || can_delete) && (is_approved === false) && (user_id === null))
             ? <BtnActions
                 icon={<DeleteIcon />}
                 color='error'
